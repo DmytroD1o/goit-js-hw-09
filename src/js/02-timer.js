@@ -14,6 +14,7 @@ const options = {
   },
 };
 
+const myInput = document.querySelector('#datetime-picker');
 const buttonStart = document.querySelector('button[data-start]');
 const spanDay = document.querySelector('span[data-days]');
 const spanHours = document.querySelector('span[data-hours]');
@@ -21,7 +22,7 @@ const spanMinutes = document.querySelector('span[data-minutes]');
 const spanSeconds = document.querySelector('span[data-seconds]');
 const fp = flatpickr('#datetime-picker', options);
 
-
+myInput.disabled = false;
 buttonStart.disabled = true;
 let date;
 let currentTime;
@@ -32,7 +33,11 @@ buttonStart.addEventListener('click', startCount);
 function startCount() {
   if(isActive) return;
   isActive = true;
+  myInput.disabled = true; 
+  buttonStart.disabled = true;
+
   const intervalId = setInterval(() => {
+
     date = fp.selectedDates[0];
     currentTime = Date.now();
     const diff = date - currentTime;
@@ -41,6 +46,7 @@ function startCount() {
       isActive = false;
       clearInterval(intervalId);
       render({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      myInput.disabled = false; 
     } else {
       
       const time = convertMs(diff);

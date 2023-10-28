@@ -35,6 +35,7 @@ function onSubmit (evt) {
   const  amount = parseInt(form.elements.amount.value);
    const step = parseInt(form.elements.step.value);
     const delay = parseInt(form.elements.delay.value);
+    form.reset();
 
 for ( let i = 0; i < amount; i+=1) {
 
